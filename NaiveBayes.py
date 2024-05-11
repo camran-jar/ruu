@@ -43,6 +43,9 @@ def train_naive_bayes(train_data):
             feature_class_total = total_feature[feature][y] + unique_feature_vals  
             for xi in set(train_data[feature]):
                 prob[(feature, xi, y)] = (count_feature[feature][(xi, y)] + 1) / feature_class_total
+
+                #print(f"Tuple number: {len(prob)}, Feature: {feature} ({xi}, {y}), Probability: {prob[(feature, xi, y)]}")
+   
     return prob
 
 def calculate_score(instance, class_label, prob):
@@ -54,19 +57,22 @@ def calculate_score(instance, class_label, prob):
 def predict(test_data, prob):
     predictions = []
     for index, instance in test_data.iterrows():
-        max_log_score = float('-inf')
+        max_prob_score = float('-inf')
         pred_class = None
         for class_label in prob:
             if isinstance(class_label, str):  
-                log_score = math.log(prob[class_label]) 
+                prob_score = prob[class_label]
                 for feature in instance.index[1:]:      
                     if feature not in ['class', 'Unnamed: 0']:  
-                        log_score += math.log(prob.get((feature, instance[feature], class_label), 1e-10))
-                if log_score > max_log_score:
-                    max_log_score = log_score
+                        prob_feature_y_given_class = prob.get((feature, instance[feature], class_label), 1e-10)
+                        print(f"Feature: {feature} ({instance[feature]}, {class_label}), Probability: {prob_feature_y_given_class}")  # print feature, value, class, and associated probability
+                        prob_score *= prob_feature_y_given_class
+                if prob_score > max_prob_score:
+                    max_prob_score = prob_score
                     pred_class = class_label
         predictions.append(pred_class)
     return predictions
+
 
 def calculate_accuracy(true_labels, pred_labels):
     correct_predictions = sum([1 for true, pred in zip(true_labels, pred_labels) if true == pred])
@@ -78,6 +84,27 @@ def main(train_file, test_file):
     test_data = load_data(test_file)
 
     prob = train_naive_bayes(train_data)
+
+    # Print class probabilities
+    class_probs = {class_label: prob[class_label] for class_label in prob if isinstance(class_label, str)}
+    print("Class probs:", class_probs)
+
+    # Print feature probabilities
+    features = train_data.drop(columns=['class', 'Unnamed: 0']).columns
+    for feature in features:
+        feature_probs = defaultdict(float)
+        for y in class_probs:
+            for value in set(train_data[feature]):
+                feature_probs[(feature, value, y)] = prob.get((feature, value, y), 0)
+        # Normalize feature probabilities to sum up to 1 for each class
+        for y in class_probs:
+            total_prob = sum(feature_probs[(feature, value, y)] for value in set(train_data[feature]))
+            if total_prob != 0:  # Avoid division by zero
+                for value in set(train_data[feature]):
+                    feature_probs[(feature, value, y)] /= total_prob
+        print(f"Feature: {feature}")
+        for key, value in feature_probs.items():
+            print(f"  {key}, sum = {value:.2f}")
 
     # Make predictions
     predictions = predict(test_data, prob)
@@ -113,7 +140,6 @@ def main(train_file, test_file):
         for row in rows:
             formatted_row = [cell.ljust(length + 2) for cell, length in zip(row, max_lengths)]
             print("".join(formatted_row))
-
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
