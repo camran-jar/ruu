@@ -1,11 +1,11 @@
-Unnamed: 0,class,age,menopause,tumor-size,inv-nodes,node-caps,deg-malig,breast,breast-quad,irradiat,Predicted Class
-189,no-recurrence-events,50-59,premeno,50-54,0-2,yes,2,right,left_up,yes,no-recurrence-events
-190,no-recurrence-events,50-59,ge40,35-39,0-2,no,2,left,left_up,no,no-recurrence-events
-191,no-recurrence-events,50-59,premeno,10-14,3-5,no,1,right,left_up,no,no-recurrence-events
-192,no-recurrence-events,40-49,premeno,10-14,0-2,no,2,left,left_low,yes,no-recurrence-events
-193,no-recurrence-events,50-59,ge40,15-19,0-2,yes,2,left,central,yes,no-recurrence-events
-194,no-recurrence-events,50-59,premeno,25-29,0-2,no,1,left,left_low,no,no-recurrence-events
-195,no-recurrence-events,60-69,ge40,25-29,0-2,no,3,right,left_low,no,no-recurrence-events
-274,recurrence-events,60-69,ge40,20-24,0-2,no,1,right,left_up,no,no-recurrence-events
-275,recurrence-events,40-49,ge40,30-34,3-5,no,3,left,left_low,no,no-recurrence-events
-276,recurrence-events,50-59,ge40,30-34,3-5,no,3,left,left_low,no,no-recurrence-events
+Unnamed: 0,class,age,menopause,tumor-size,inv-nodes,node-caps,deg-malig,breast,breast-quad,irradiat,Predicted Class,Score (no-recurrence-events),Score (recurrence-events)
+189,no-recurrence-events,50-59,premeno,50-54,0-2,yes,2,right,left_up,yes,no-recurrence-events,0.0058827605841780505,5.15296876948934e-06
+190,no-recurrence-events,50-59,ge40,35-39,0-2,no,2,left,left_up,no,no-recurrence-events,0.02608807696421562,1.0089467932738153e-06
+191,no-recurrence-events,50-59,premeno,10-14,3-5,no,1,right,left_up,no,no-recurrence-events,0.027060696903017014,2.7695474521912727e-07
+192,no-recurrence-events,40-49,premeno,10-14,0-2,no,2,left,left_low,yes,no-recurrence-events,0.022746588868741962,7.602225961292457e-07
+193,no-recurrence-events,50-59,ge40,15-19,0-2,yes,2,left,central,yes,no-recurrence-events,0.012688486006757767,2.781234115340073e-06
+194,no-recurrence-events,50-59,premeno,25-29,0-2,no,1,left,left_low,no,no-recurrence-events,0.03195580427402308,1.0248747606581533e-06
+195,no-recurrence-events,60-69,ge40,25-29,0-2,no,3,right,left_low,no,no-recurrence-events,0.018319093167253605,3.2524761177689245e-06
+274,recurrence-events,60-69,ge40,20-24,0-2,no,1,right,left_up,no,no-recurrence-events,0.03995934450591441,5.619893284634167e-07
+275,recurrence-events,40-49,ge40,30-34,3-5,no,3,left,left_low,no,no-recurrence-events,0.010119783841757046,8.31702877473769e-06
+276,recurrence-events,50-59,ge40,30-34,3-5,no,3,left,left_low,no,no-recurrence-events,0.010842625544739692,6.925779761136879e-06
